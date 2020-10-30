@@ -6,10 +6,11 @@
       "module": "CommonJS",
       "strict": true,
       "declaration": true,
-      "baseUrl": "./src"
+      "baseUrl": "./src",
+      "noImplicitAny": false
   },
   "include": [
-      "src/**/*", "auto.js"
+      "src/**/*.ts"
       // "."
   ]
 }

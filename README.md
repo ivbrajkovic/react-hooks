@@ -2,7 +2,7 @@
 
 Collection of React hooks ES2015 compatibile
 
-## Function list
+## Hooks list
 
 ```js
 useFetchJsonAbort; // fetch JSON response

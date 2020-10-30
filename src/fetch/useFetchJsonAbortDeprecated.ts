@@ -4,7 +4,7 @@ import { useReducer, useEffect, useRef, useCallback } from "react";
 
 import { fetchJsonAsync } from "@ivbrajkovic/utils";
 
-interface state {
+interface State {
   data: any;
   error: string;
   loading: boolean;
@@ -16,14 +16,14 @@ const TYPES = {
   SET_DATA: "SET_DATA",
 };
 
-const initialState: state = {
+const initialState: State = {
   data: {},
   error: "",
   loading: false,
 };
 
 const reducer = (
-  state: state,
+  state: State,
   { type, payload }: { type: string; payload: any }
 ) => {
   switch (type) {
@@ -41,14 +41,17 @@ const reducer = (
   }
 };
 
-const useFetchJsonAbort = (url: string, options = {}): (() => void) => {
+const useFetchJsonAbort = (
+  url: string,
+  options = {}
+): Array<any | Function> => {
   const abortControllerRef = useRef();
 
   const [status, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     abortControllerRef.current = new AbortController();
-    const signal = abortControllerRef.current.signal;
+    const { signal } = abortControllerRef.current;
 
     (async () => {
       try {
@@ -63,14 +66,14 @@ const useFetchJsonAbort = (url: string, options = {}): (() => void) => {
       }
     })();
 
-    return () =>
-      abortControllerRef.current && (abortControllerRef.current = null);
+    return () => {
+      if (abortControllerRef.current) abortControllerRef.current = null;
+    };
   }, [url]);
 
-  const abort = useCallback(
-    () => abortControllerRef.current && abortControllerRef.current.abort(),
-    []
-  );
+  const abort = useCallback(() => {
+    if (abortControllerRef.current) abortControllerRef.current.abort();
+  }, []);
 
   return [status, abort];
 };

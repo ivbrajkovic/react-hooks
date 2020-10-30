@@ -4,7 +4,7 @@ import { useReducer, useEffect, useRef, useCallback } from "react";
 
 import { fetchJsonAbortCb } from "@ivbrajkovic/utils";
 
-interface state {
+interface State {
   data: any;
   error: string;
   loading: boolean;
@@ -16,14 +16,14 @@ const TYPES = {
   SET_DATA: "SET_DATA",
 };
 
-const initialState: state = {
+const initialState: State = {
   data: {},
   error: "",
   loading: false,
 };
 
 const reducer = (
-  state: state,
+  state: State,
   { type, payload }: { type: string; payload: any }
 ) => {
   switch (type) {
@@ -41,7 +41,10 @@ const reducer = (
   }
 };
 
-const useFetchJsonAbort = (url: string, options = {}): (() => void) => {
+const useFetchJsonAbort = (
+  url: string,
+  options = {}
+): Array<any | Function>[] => {
   const abortRef = useRef();
 
   const [status, dispatch] = useReducer(reducer, initialState);
@@ -56,10 +59,15 @@ const useFetchJsonAbort = (url: string, options = {}): (() => void) => {
     });
     abortRef.current = abort;
 
-    return () => abortRef.current && (abortRef.current = null);
+    return () => {
+      if (abortRef.current) abortRef.current = null;
+    };
   }, [url]);
 
-  const abort = useCallback(() => abortRef.current && abortRef.current(), []);
+  const abort: Function = useCallback(
+    () => abortRef.current && abortRef.current(),
+    []
+  );
 
   return [status, abort];
 };
