@@ -4,6 +4,7 @@ module.exports = {
   plugins: ["@typescript-eslint"],
   // extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   extends: ["airbnb-typescript", "prettier", "prettier/@typescript-eslint"],
+  // extends: ["airbnb-typescript"],
   env: {
     browser: true,
     amd: true,
@@ -14,7 +15,8 @@ module.exports = {
   },
   ignorePatterns: ["/*.*"],
   rules: {
-    "linebreak-style": ["error", "windows"],
-    "object-curly-newline": ["error", { multiline: true }],
+    // "linebreak-style": ["error", "windows"],
+    // "object-curly-newline": ["error", { multiline: true }],
+    "import/no-extraneous-dependencies": 0,
   },
 };

@@ -40,7 +40,7 @@ var reducer = function (state, _a) {
 var useFetchJsonAbort = function (url, options) {
     if (options === void 0) { options = {}; }
     var abortRef = react_1.useRef();
-    var _a = react_1.useReducer(reducer, initialState), status = _a[0], dispatch = _a[1];
+    var _a = react_1.useReducer(reducer, initialState), state = _a[0], dispatch = _a[1];
     react_1.useEffect(function () {
         dispatch({ type: TYPES.SET_LOADING });
         // Fetch json async with abort feature
@@ -56,7 +56,10 @@ var useFetchJsonAbort = function (url, options) {
                 abortRef.current = null;
         };
     }, [url]);
-    var abort = react_1.useCallback(function () { return abortRef.current && abortRef.current(); }, []);
-    return [status, abort];
+    var abort = react_1.useCallback(function () {
+        if (abortRef.current)
+            abortRef.current();
+    }, []);
+    return [state, abort];
 };
 exports.default = useFetchJsonAbort;

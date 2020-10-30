@@ -44,10 +44,10 @@ const reducer = (
 const useFetchJsonAbort = (
   url: string,
   options = {}
-): [status: any, abort: Function] => {
+): [state: State, abort: Function] => {
   const abortRef = useRef();
 
-  const [status, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
     dispatch({ type: TYPES.SET_LOADING });
@@ -64,12 +64,11 @@ const useFetchJsonAbort = (
     };
   }, [url]);
 
-  const abort: Function = useCallback(
-    () => abortRef.current && abortRef.current(),
-    []
-  );
+  const abort: Function = useCallback(() => {
+    if (abortRef.current) abortRef.current();
+  }, []);
 
-  return [status, abort];
+  return [state, abort];
 };
 
 export default useFetchJsonAbort;

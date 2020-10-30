@@ -10,7 +10,7 @@
       "noImplicitAny": false
   },
   "include": [
-      "src/**/*.ts"
+      "src/**/*.ts", "src/fetch/test.js"
       // "."
   ]
 }
