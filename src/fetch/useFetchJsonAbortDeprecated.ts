@@ -44,7 +44,7 @@ const reducer = (
 const useFetchJsonAbort = (
   url: string,
   options = {}
-): Array<any | Function> => {
+): [status: any, abort: Function] => {
   const abortControllerRef = useRef();
 
   const [status, dispatch] = useReducer(reducer, initialState);

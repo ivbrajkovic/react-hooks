@@ -1,2 +1,2 @@
-declare const useFetchJsonAbort: (url: string, options?: {}) => Array<any | Function>;
+declare const useFetchJsonAbort: (url: string, options?: {}) => [status: any, abort: Function];
 export default useFetchJsonAbort;
