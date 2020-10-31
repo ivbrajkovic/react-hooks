@@ -21,7 +21,7 @@ var TYPES = {
 };
 var initialState = {
     data: null,
-    error: "null",
+    error: "",
     loading: false,
 };
 var reducer = function (state, _a) {
