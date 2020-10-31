@@ -17,8 +17,8 @@ const TYPES = {
 };
 
 const initialState: State = {
-  data: {},
-  error: "",
+  data: null,
+  error: "null",
   loading: false,
 };
 

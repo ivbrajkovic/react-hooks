@@ -20,8 +20,8 @@ var TYPES = {
     SET_DATA: "SET_DATA",
 };
 var initialState = {
-    data: {},
-    error: "",
+    data: null,
+    error: "null",
     loading: false,
 };
 var reducer = function (state, _a) {
