@@ -26,7 +26,7 @@ const createObserver = (elements, options, cb) => {
 };
 
 /**
- *
+ * Intersection observer
  * @param elements Array of HTMLElements to observe
  * @param cb Callabck
  * @param options Intersection observer options

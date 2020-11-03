@@ -4,7 +4,7 @@ interface Options {
     thresholds: ReadonlyArray<number>;
 }
 /**
- *
+ * Intersection observer
  * @param elements Array of HTMLElements to observe
  * @param cb Callabck
  * @param options Intersection observer options
