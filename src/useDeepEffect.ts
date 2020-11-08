@@ -10,7 +10,7 @@ const useDeepEffect = (effectFunc: Function, deps: Array<any>): void => {
   const prevDeps = useRef(JSON.stringify(deps));
 
   useEffect(() => {
-    if (isFirstRef) {
+    if (isFirstRef.current) {
       isFirstRef.current = false;
       effectFunc();
       return;
