@@ -8,6 +8,7 @@ Collection of React hooks ES2015 compatibile
 useFetchJsonAbort; // Fetch JSON response
 useFetchJsonAbortDeprecated; // Fetch JSON response
 useIntersectionObserver; // Intersection observer
+useDeepEffect; // Deep compare useEffect hook
 ```
 
 ## TODO

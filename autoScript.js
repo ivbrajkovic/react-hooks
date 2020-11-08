@@ -221,9 +221,8 @@ async function npmPublish() {
 
 (async () => {
   try {
-    deleteDirectory(DIST_DIR);
     isLint && lint();
-    isCompile && compile();
+    isCompile && (deleteDirectory(DIST_DIR), compile());
     isMinify && (await minifyDirectory(DIST_DIR));
     isBump && (await updateVersion(verIncerment));
     isGit && (await gitPush());

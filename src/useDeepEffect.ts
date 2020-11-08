@@ -1,5 +1,10 @@
 import { useRef, useEffect } from "react";
 
+/**
+ * Deep compare useEffect hook
+ * @param effectFunc React useEffect hook
+ * @param deps Dependency array
+ */
 const useDeepEffect = (effectFunc: Function, deps: Array<any>): void => {
   const isFirstRef = useRef(true);
   const prevDeps = useRef(JSON.stringify(deps));
