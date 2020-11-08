@@ -5,21 +5,38 @@ import { useRef, useEffect } from "react";
  * @param effectFunc React useEffect hook
  * @param deps Dependency array
  */
-const useDeepEffect = (effectFunc: Function, deps: Array<any>): void => {
+const useDeepEffect = (
+  effectFunc: Function,
+  deps: Array<any>,
+  cb?: Function
+): void => {
   const isFirstRef = useRef(true);
-  const prevDeps = useRef(JSON.stringify(deps));
+  // const prevDeps = useRef(JSON.stringify(deps));
+  const prevDeps = useRef(deps);
 
   useEffect(() => {
+    // If on mount
     if (isFirstRef.current) {
       isFirstRef.current = false;
       effectFunc();
       return;
     }
 
-    const depsStringified = JSON.stringify(deps);
+    // If cb is a function
+    if (cb && typeof cb === "function") {
+      if (cb(prevDeps.current)) {
+        prevDeps.current = deps;
+        effectFunc();
+      }
+      return;
+    }
 
-    if (!(prevDeps.current === depsStringified)) {
-      prevDeps.current = depsStringified;
+    // Else do a deep copmare
+    const depsStringified = JSON.stringify(deps);
+    const prevDepsStringified = JSON.stringify(prevDeps.current);
+
+    if (prevDepsStringified !== depsStringified) {
+      prevDeps.current = deps;
       effectFunc();
     }
   }, [deps]);
