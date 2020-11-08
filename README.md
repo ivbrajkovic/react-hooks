@@ -7,7 +7,7 @@ Collection of React hooks ES2015 compatibile
 ```js
 useFetchJsonAbort; // Fetch JSON response
 useFetchJsonAbortDeprecated; // Fetch JSON response
-useIntersectionObserver; // intersection observer
+useIntersectionObserver; // Intersection observer
 ```
 
 ## TODO
