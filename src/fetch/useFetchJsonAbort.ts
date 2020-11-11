@@ -43,7 +43,7 @@ const reducer = (
 
 const useFetchJsonAbort = (
   url: string,
-  options = {}
+  options: RequestInit = {}
 ): [state: State, abort: Function] => {
   const abortRef = useRef();
 

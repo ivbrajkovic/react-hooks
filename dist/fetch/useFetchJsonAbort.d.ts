@@ -3,5 +3,5 @@ interface State {
     error: string;
     loading: boolean;
 }
-declare const useFetchJsonAbort: (url: string, options?: {}) => [state: State, abort: Function];
+declare const useFetchJsonAbort: (url: string, options?: RequestInit) => [state: State, abort: Function];
 export default useFetchJsonAbort;
