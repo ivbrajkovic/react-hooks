@@ -24,7 +24,7 @@ const initialState: State = {
 
 const reducer = (
   state: State,
-  { type, payload }: { type: string; payload: any }
+  { type, payload }: { type: string; payload?: any }
 ) => {
   switch (type) {
     case TYPES.SET_LOADING:
@@ -45,7 +45,7 @@ const useFetchJsonAbort = (
   url: string,
   options = {}
 ): [state: State, abort: Function] => {
-  const abortControllerRef = useRef();
+  const abortControllerRef = useRef<AbortController>();
 
   const [status, dispatch] = useReducer(reducer, initialState);
 
@@ -67,9 +67,9 @@ const useFetchJsonAbort = (
     })();
 
     return () => {
-      if (abortControllerRef.current) abortControllerRef.current = null;
+      if (abortControllerRef.current) abortControllerRef.current = undefined;
     };
-  }, [url]);
+  }, [url, options]);
 
   const abort = useCallback(() => {
     if (abortControllerRef.current) abortControllerRef.current.abort();

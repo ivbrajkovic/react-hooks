@@ -1,5 +1,3 @@
-/* eslint-disable  @typescript-eslint/no-explicit-any */
-
 import { useReducer, useEffect, useRef, useCallback } from "react";
 
 import { fetchJsonAbortCb } from "@ivbrajkovic/utils";
@@ -24,7 +22,7 @@ const initialState: State = {
 
 const reducer = (
   state: State,
-  { type, payload }: { type: string; payload: any }
+  { type, payload }: { type: string; payload?: any }
 ) => {
   switch (type) {
     case TYPES.SET_LOADING:
@@ -45,7 +43,7 @@ const useFetchJsonAbort = (
   url: string,
   options: RequestInit = {}
 ): [state: State, abort: Function] => {
-  const abortRef = useRef();
+  const abortRef = useRef<() => void>();
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -60,9 +58,9 @@ const useFetchJsonAbort = (
     abortRef.current = abort;
 
     return () => {
-      if (abortRef.current) abortRef.current = null;
+      if (abortRef.current) abortRef.current = undefined;
     };
-  }, [url]);
+  }, [url, options]);
 
   const abort: Function = useCallback(() => {
     if (abortRef.current) abortRef.current();

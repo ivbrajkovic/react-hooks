@@ -39,6 +39,7 @@ const useDeepEffect = (
       prevDeps.current = deps;
       effectFunc();
     }
+    // eslint-disable-next-line
   }, [deps]);
 };
 

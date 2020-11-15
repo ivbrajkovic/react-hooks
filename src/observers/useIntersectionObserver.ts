@@ -35,12 +35,12 @@ const useIntersectionObserver = (
   elements: Array<Element> = [],
   cb: (IntersectionObserverEntry) => void,
   options = defaultOptions
-): { observer: IntersectionObserver; error: string } => {
-  const observer = useRef();
-  const [error, setError] = useState();
+): { observer: IntersectionObserver | undefined; error: string } => {
+  const observer = useRef<IntersectionObserver>();
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if (error) setError();
+    if (error) setError("");
     try {
       observer.current = createObserver(elements, options, cb);
     } catch (err) {
@@ -49,12 +49,13 @@ const useIntersectionObserver = (
     return () => {
       if (observer.current) {
         observer.current.disconnect();
-        observer.current = null;
+        observer.current = undefined;
       }
     };
+    // eslint-disable-next-line
   }, [elements]);
 
-  return { observer, error };
+  return { observer: observer.current, error };
 };
 
 export default useIntersectionObserver;

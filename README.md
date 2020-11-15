@@ -9,6 +9,7 @@ useFetchJsonAbort; // Fetch JSON response
 useFetchJsonAbortDeprecated; // Fetch JSON response
 useIntersectionObserver; // Intersection observer
 useDeepEffect; // Deep compare useEffect hook
+useFlipAnimation; // FLIP animation hook
 ```
 
 ### useDeepEffect example

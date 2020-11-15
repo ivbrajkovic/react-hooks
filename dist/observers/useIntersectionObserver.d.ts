@@ -10,7 +10,7 @@ interface Options {
  * @param options Intersection observer options
  */
 declare const useIntersectionObserver: (elements: Element[] | undefined, cb: (IntersectionObserverEntry: any) => void, options?: Options) => {
-    observer: IntersectionObserver;
+    observer: IntersectionObserver | undefined;
     error: string;
 };
 export default useIntersectionObserver;
