@@ -1,14 +1,20 @@
 import { useRef, useState, useEffect } from "react";
 
-interface Options {
+type Callback = (err: Error | null, data?: Object) => void;
+
+interface IOptions {
   root: Element | null;
   rootMargin: string;
   thresholds: ReadonlyArray<number>;
 }
 
-type Callback = (err: Error | null, data?: Object) => void;
+interface IParams {
+  elements: Array<Element>;
+  options: IOptions | Callback;
+  callback: (IntersectionObserverEntry) => void | undefined;
+}
 
-const defaultOptions: Options = {
+const defaultOptions: IOptions = {
   root: null,
   rootMargin: "-150px 0px -150px 0px",
   thresholds: [0],
@@ -33,26 +39,30 @@ const createObserver = (elements, options, cb) => {
  * @param cb Callback
  * @param options Intersection observer options
  */
-function useIntersectionObserver(
-  elements: Array<Element> = [],
-  options: Options | Callback,
-  cb: (IntersectionObserverEntry) => void | undefined
-): { observer: IntersectionObserver | undefined; error: string } {
-  const opt =
-    typeof options === "function"
-      ? defaultOptions
-      : { ...defaultOptions, ...options };
-
+function useIntersectionObserver({
+  elements = [],
+  options,
+  callback,
+}: IParams): {
+  observer: IntersectionObserver | undefined;
+  error: string;
+} {
   const observer = useRef<IntersectionObserver>();
   const [error, setError] = useState("");
 
+  const opt = { ...defaultOptions, ...options };
+
   useEffect(() => {
+    if (!elements.length) return;
     if (error) setError("");
+
     try {
-      observer.current = createObserver(elements, opt, cb);
+      observer.current = createObserver(elements, opt, callback);
     } catch (err) {
       setError(err.message);
     }
+
+    // eslint-disable-next-line
     return () => {
       if (observer.current) {
         observer.current.disconnect();
