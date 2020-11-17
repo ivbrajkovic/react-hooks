@@ -6,6 +6,8 @@ interface Options {
   thresholds: ReadonlyArray<number>;
 }
 
+type Callback = (err: Error | null, data?: Object) => void;
+
 const defaultOptions: Options = {
   root: null,
   rootMargin: "-150px 0px -150px 0px",
@@ -28,21 +30,26 @@ const createObserver = (elements, options, cb) => {
 /**
  * Intersection observer
  * @param elements Array of HTMLElements to observe
- * @param cb Callabck
+ * @param cb Callback
  * @param options Intersection observer options
  */
-const useIntersectionObserver = (
+function useIntersectionObserver(
   elements: Array<Element> = [],
-  cb: (IntersectionObserverEntry) => void,
-  options = defaultOptions
-): { observer: IntersectionObserver | undefined; error: string } => {
+  options: Options | Callback,
+  cb: (IntersectionObserverEntry) => void | undefined
+): { observer: IntersectionObserver | undefined; error: string } {
+  const opt =
+    typeof options === "function"
+      ? defaultOptions
+      : { ...defaultOptions, ...options };
+
   const observer = useRef<IntersectionObserver>();
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (error) setError("");
     try {
-      observer.current = createObserver(elements, options, cb);
+      observer.current = createObserver(elements, opt, cb);
     } catch (err) {
       setError(err.message);
     }
@@ -56,6 +63,6 @@ const useIntersectionObserver = (
   }, [elements]);
 
   return { observer: observer.current, error };
-};
+}
 
 export default useIntersectionObserver;
