@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 
-type Callback = (err: Error | null, data?: Object) => void;
+type Callback = (entry: IntersectionObserverEntry) => void | undefined;
 
 interface IOptions {
   root: Element | null;
@@ -11,24 +11,24 @@ interface IOptions {
 interface IParams {
   elements: Array<Element>;
   options: IOptions | Callback;
-  callback: (IntersectionObserverEntry) => void | undefined;
+  callback: Callback;
 }
 
 const defaultOptions: IOptions = {
   root: null,
   rootMargin: "-150px 0px -150px 0px",
-  thresholds: [0],
+  thresholds: [0]
 };
 
 // Handle intersection
-const handleIntersect = (cb) => (entries) => {
-  entries.forEach((entry) => cb && cb(entry));
+const handleIntersect = cb => entries => {
+  entries.forEach(entry => cb && cb(entry));
 };
 
 // Create intersection observer
 const createObserver = (elements, options, cb) => {
   const observer = new IntersectionObserver(handleIntersect(cb), options);
-  elements.forEach((el) => observer.observe(el));
+  elements.forEach(el => observer.observe(el));
 
   return observer;
 };
@@ -42,7 +42,7 @@ const createObserver = (elements, options, cb) => {
 function useIntersectionObserver({
   elements = [],
   options,
-  callback,
+  callback
 }: IParams): {
   observer: IntersectionObserver | undefined;
   error: string;

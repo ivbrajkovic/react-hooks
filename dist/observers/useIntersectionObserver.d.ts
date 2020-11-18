@@ -1,4 +1,4 @@
-declare type Callback = (err: Error | null, data?: Object) => void;
+declare type Callback = (entry: IntersectionObserverEntry) => void | undefined;
 interface IOptions {
     root: Element | null;
     rootMargin: string;
@@ -7,7 +7,7 @@ interface IOptions {
 interface IParams {
     elements: Array<Element>;
     options: IOptions | Callback;
-    callback: (IntersectionObserverEntry: any) => void | undefined;
+    callback: Callback;
 }
 /**
  * Intersection observer
@@ -15,7 +15,7 @@ interface IParams {
  * @param cb Callback
  * @param options Intersection observer options
  */
-declare function useIntersectionObserver({ elements, options, callback, }: IParams): {
+declare function useIntersectionObserver({ elements, options, callback }: IParams): {
     observer: IntersectionObserver | undefined;
     error: string;
 };
