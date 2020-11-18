@@ -1,7 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 
-type Callback = (entry: IntersectionObserverEntry) => void | undefined;
-
 interface IOptions {
   root: Element | null;
   rootMargin: string;
@@ -10,8 +8,8 @@ interface IOptions {
 
 interface IParams {
   elements: Array<Element>;
-  options: IOptions | Callback;
-  callback: Callback;
+  options: IOptions | IntersectionObserverCallback;
+  callback: IntersectionObserverCallback;
 }
 
 const defaultOptions: IOptions = {
@@ -21,12 +19,19 @@ const defaultOptions: IOptions = {
 };
 
 // Handle intersection
-const handleIntersect = cb => (entries, self) => {
-  entries.forEach(entry => cb && cb(entry, self));
+const handleIntersect = cb => (
+  entries: IntersectionObserverEntry[],
+  observer: IntersectionObserver
+) => {
+  entries.forEach(entry => cb && cb(entry, observer));
 };
 
 // Create intersection observer
-const createObserver = (elements, options, cb) => {
+const createObserver = (
+  elements: Element[],
+  options: IntersectionObserverInit,
+  cb: IntersectionObserverCallback
+) => {
   const observer = new IntersectionObserver(handleIntersect(cb), options);
   elements.forEach(el => observer.observe(el));
 
