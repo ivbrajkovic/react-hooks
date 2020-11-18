@@ -21,8 +21,8 @@ const defaultOptions: IOptions = {
 };
 
 // Handle intersection
-const handleIntersect = cb => entries => {
-  entries.forEach(entry => cb && cb(entry));
+const handleIntersect = cb => (entries, self) => {
+  entries.forEach(entry => cb && cb(entry, self));
 };
 
 // Create intersection observer
