@@ -98,6 +98,8 @@ const useFlipAnimation = ({
   useEffect(() => {
     firstRun.current = true;
     origins.current = {};
+    refresh(s => !s);
+    // eslint-disable-next-line
   }, [enable]);
 
   // ────────────────────────────────────────────────────────
