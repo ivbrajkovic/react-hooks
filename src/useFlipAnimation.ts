@@ -17,6 +17,7 @@ interface IFlipProps {
   play: typeof CallbackFunc;
   invertAndPlay?: typeof CallbackFunc;
   debounceScrolling?: number;
+  enable?: boolean;
 }
 
 interface ICallbackProps {
@@ -84,17 +85,28 @@ const useFlipAnimation = ({
   invert = invertDefault,
   play = playDefault,
   invertAndPlay = invertAndPlayDefault,
-  debounceScrolling = 0
+  debounceScrolling = 0,
+  enable = false
 }: IFlipProps) => {
   const origins = useRef({});
   const firstRun = useRef(true);
   const refresh = useState(true)[1];
 
   // ────────────────────────────────────────────────────────
+  // Toggle animation on/off
+  //
+  useEffect(() => {
+    firstRun.current = true;
+    origins.current = {};
+  }, [enable]);
+
+  // ────────────────────────────────────────────────────────
   // Debounce window scroll listener
   // and set flag to recalculate starting items position
   //
   useEffect(() => {
+    if (!enable) return;
+
     let debounced;
     if (debounceScrolling > 0) {
       debounced = debounce(() => {
@@ -106,15 +118,19 @@ const useFlipAnimation = ({
 
       window.addEventListener("scroll", debounced);
     }
+
+    // eslint-disable-next-line consistent-return
     return () => debounced && window.removeEventListener("scroll", debounced);
+
     // eslint-disable-next-line
-  }, []);
+  }, [enable]);
 
   // ────────────────────────────────────────────────────────
   // Flip animation
-  //
+  //  using sync layout effect to get elements
+  //  position before rendering to the DOM
   useLayoutEffect(() => {
-    if (!root.current) return;
+    if (!root.current || !enable) return;
 
     // eslint-disable-next-line
     const children = root.current.children;
@@ -153,7 +169,7 @@ const useFlipAnimation = ({
     }
 
     firstRun.current = false;
-  }, [root, invert, play, invertAndPlay]);
+  }, [root, invert, play, invertAndPlay, enable]);
 };
 
 export default useFlipAnimation;

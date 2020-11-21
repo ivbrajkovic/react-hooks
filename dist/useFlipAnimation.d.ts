@@ -11,6 +11,7 @@ interface IFlipProps {
     play: typeof CallbackFunc;
     invertAndPlay?: typeof CallbackFunc;
     debounceScrolling?: number;
+    enable?: boolean;
 }
 interface ICallbackProps {
     delta: DeltaRect;
@@ -19,5 +20,5 @@ interface ICallbackProps {
     next: DOMRect;
 }
 declare function CallbackFunc({ delta, elem, previous, next }: ICallbackProps): void;
-declare const useFlipAnimation: ({ root, invert, play, invertAndPlay, debounceScrolling }: IFlipProps) => void;
+declare const useFlipAnimation: ({ root, invert, play, invertAndPlay, debounceScrolling, enable }: IFlipProps) => void;
 export default useFlipAnimation;
