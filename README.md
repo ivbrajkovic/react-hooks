@@ -13,6 +13,10 @@ useFlipAnimation; // FLIP animation hook
 useRippleEffect; // Ripple effect hook
 ```
 
+### useRippleEffect example
+
+Demo - [codesandbox.io](https://codesandbox.io/s/userippleeffect-wel3b?file=/src/App.js)
+
 ### useDeepEffect example
 
 ```js
