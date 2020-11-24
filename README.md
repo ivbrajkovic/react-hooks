@@ -10,6 +10,7 @@ useFetchJsonAbortDeprecated; // Fetch JSON response
 useIntersectionObserver; // Intersection observer
 useDeepEffect; // Deep compare useEffect hook
 useFlipAnimation; // FLIP animation hook
+useRippleEffect; // Ripple effect hook
 ```
 
 ### useDeepEffect example
@@ -41,7 +42,7 @@ const PropertyChild = ({ data }) => {
       console.log("Lastname changed!");
     },
     [data],
-    (state) => state[0].lastName !== data.lastName
+    state => state[0].lastName !== data.lastName
   );
   return null;
 };
@@ -58,7 +59,7 @@ const Index = () => {
 
   useEffect(() => {
     const intervalID = setInterval(() => {
-      setCount((state) => state + 1);
+      setCount(state => state + 1);
     }, 1000);
     return () => {
       intervalID && clearInterval(intervalID);
