@@ -4,4 +4,5 @@ import useIntersectionObserver from "./observers/useIntersectionObserver";
 import useDeepEffect from "./useDeepEffect";
 import useFlipAnimation from "./useFlipAnimation";
 import useRippleEffect from "./useRippleEffect";
-export { useFetchJsonAbort, useFetchJsonAbortDeprecated, useIntersectionObserver, useDeepEffect, useFlipAnimation, useRippleEffect };
+import useInterval from "./useInterval";
+export { useFetchJsonAbort, useFetchJsonAbortDeprecated, useIntersectionObserver, useDeepEffect, useFlipAnimation, useRippleEffect, useInterval };

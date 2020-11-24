@@ -5,6 +5,7 @@ import useIntersectionObserver from "./observers/useIntersectionObserver";
 import useDeepEffect from "./useDeepEffect";
 import useFlipAnimation from "./useFlipAnimation";
 import useRippleEffect from "./useRippleEffect";
+import useInterval from "./useInterval";
 
 export {
   useFetchJsonAbort,
@@ -12,5 +13,6 @@ export {
   useIntersectionObserver,
   useDeepEffect,
   useFlipAnimation,
-  useRippleEffect
+  useRippleEffect,
+  useInterval
 };
