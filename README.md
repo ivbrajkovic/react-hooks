@@ -12,6 +12,7 @@ useDeepEffect; // Deep compare useEffect hook
 useInterval; // Interval hook with stop/pause/change options
 useFlipAnimation; // FLIP animation hook
 useRippleEffect; // Ripple effect hook
+useCombinedRefs; // Reuse forwarded ref
 ```
 
 useRippleEffect demo - [codesandbox.io](https://codesandbox.io/s/userippleeffect-wel3b?file=/src/App.js)  
