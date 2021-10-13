@@ -15,16 +15,15 @@ interface IParams {
 const defaultOptions: IOptions = {
   root: null,
   rootMargin: "-150px 0px -150px 0px",
-  thresholds: [0]
+  thresholds: [0],
 };
 
 // Handle intersection
-const handleIntersect = cb => (
-  entries: IntersectionObserverEntry[],
-  observer: IntersectionObserver
-) => {
-  entries.forEach(entry => cb && cb(entry, observer));
-};
+const handleIntersect =
+  (cb) =>
+  (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+    entries.forEach((entry) => cb && cb(entry, observer));
+  };
 
 // Create intersection observer
 const createObserver = (
@@ -33,7 +32,7 @@ const createObserver = (
   cb: IntersectionObserverCallback
 ) => {
   const observer = new IntersectionObserver(handleIntersect(cb), options);
-  elements.forEach(el => observer.observe(el));
+  elements.forEach((el) => observer.observe(el));
 
   return observer;
 };
@@ -47,7 +46,7 @@ const createObserver = (
 function useIntersectionObserver({
   elements = [],
   options,
-  callback
+  callback,
 }: IParams): {
   observer: IntersectionObserver | undefined;
   error: string;
@@ -63,7 +62,7 @@ function useIntersectionObserver({
 
     try {
       observer.current = createObserver(elements, opt, callback);
-    } catch (err) {
+    } catch (err: any) {
       setError(err.message);
     }
 

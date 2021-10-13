@@ -61,7 +61,7 @@ const useFetchJsonAbort = (
         const data = await fetchJsonAsync(url, { ...options, signal });
 
         dispatch({ type: TYPES.SET_DATA, payload: data });
-      } catch (error) {
+      } catch (error: any) {
         dispatch({ type: TYPES.SET_ERROR, payload: error.message });
       }
     })();

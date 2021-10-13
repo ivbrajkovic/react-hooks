@@ -11,7 +11,7 @@ const useInterval = (func: () => void, interval: number) => {
       if (id.current) clearInterval(id.current);
       return undefined;
     }
-    id.current = setInterval(func, interval);
+    id.current = Number(setInterval(func, interval));
     return () => {
       if (id.current) clearInterval(id.current);
     };

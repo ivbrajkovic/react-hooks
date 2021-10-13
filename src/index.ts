@@ -6,6 +6,7 @@ import useDeepEffect from "./useDeepEffect";
 import useFlipAnimation from "./useFlipAnimation";
 import useRippleEffect from "./useRippleEffect";
 import useInterval from "./useInterval";
+import useState2 from "./useState2";
 
 export {
   useFetchJsonAbort,
@@ -14,5 +15,6 @@ export {
   useDeepEffect,
   useFlipAnimation,
   useRippleEffect,
-  useInterval
+  useInterval,
+  useState2,
 };

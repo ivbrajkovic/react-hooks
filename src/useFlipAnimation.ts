@@ -1,8 +1,8 @@
 /* eslint-disable no-param-reassign */
 // useFlip hook
 
-import { useRef, useLayoutEffect, useEffect, useState } from "react";
-import { debounce } from "@ivbrajkovic/utils";
+import { useRef, useLayoutEffect, useEffect, useState } from 'react';
+import { debounce } from '@ivbrajkovic/utils';
 
 interface DeltaRect {
   top: number;
@@ -31,7 +31,7 @@ declare function CallbackFunc({
   delta,
   elem,
   previous,
-  next
+  next,
 }: ICallbackProps): void;
 
 // ────────────────────────────────────────────────────────
@@ -52,9 +52,9 @@ const invertAndPlayDefault = ({ delta, elem, previous, next }) => {
   elem.animate(
     [
       { transform: `translate(${delta.left}px, ${delta.top}px)` },
-      { transform: `none` }
+      { transform: `none` },
     ],
-    { delay: 0, duration: 300, easing: "ease" }
+    { delay: 0, duration: 300, easing: 'ease' }
   );
 };
 //
@@ -67,7 +67,7 @@ const getDelta = (start: DOMRect, target: DOMRect) => ({
   top: start.top - target.top,
   left: start.left - target.left,
   width: start.width / target.width,
-  height: start.height / target.height
+  height: start.height / target.height,
 });
 
 const isZero = (delta: DeltaRect) =>
@@ -86,7 +86,7 @@ const useFlipAnimation = ({
   play = playDefault,
   invertAndPlay = invertAndPlayDefault,
   debounceScrolling = 0,
-  enable = false
+  enable = false,
 }: IFlipProps) => {
   const origins = useRef({});
   const firstRun = useRef(true);
@@ -98,7 +98,7 @@ const useFlipAnimation = ({
   useEffect(() => {
     firstRun.current = true;
     origins.current = {};
-    refresh(s => !s);
+    refresh((s) => !s);
     // eslint-disable-next-line
   }, [enable]);
 
@@ -115,14 +115,14 @@ const useFlipAnimation = ({
         // On scroll we must recalculate items position
         firstRun.current = true;
         // Force re-render
-        refresh(s => !s);
+        refresh((s) => !s);
       }, debounceScrolling);
 
-      window.addEventListener("scroll", debounced);
+      window.addEventListener('scroll', debounced);
     }
 
     // eslint-disable-next-line consistent-return
-    return () => debounced && window.removeEventListener("scroll", debounced);
+    return () => debounced && window.removeEventListener('scroll', debounced);
 
     // eslint-disable-next-line
   }, [enable]);
@@ -151,9 +151,9 @@ const useFlipAnimation = ({
           const delta = getDelta(previous, next);
 
           if (!isZero(delta as DOMRect)) {
-            if (invertAndPlay) {
+            if (invertAndPlay)
               invertAndPlay({ delta, elem: child, previous, next });
-            } else {
+            else {
               // Invert position
               invert({ delta, elem: child, previous, next });
 

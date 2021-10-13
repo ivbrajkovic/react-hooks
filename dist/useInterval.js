@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0});var react_1=require("react"),useInterval=function(e,r){var t=react_1.useRef(-1);react_1.useEffect((function(){if(!(r<=0))return t.current=setInterval(e,r),function(){t.current&&clearInterval(t.current)};t.current&&clearInterval(t.current)}),[e,r])};exports.default=useInterval;
